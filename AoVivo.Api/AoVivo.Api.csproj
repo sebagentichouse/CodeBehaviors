@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>AoVivo.Api</RootNamespace>
+    <!-- Same id as the AoVivo console app, so both share the same user secrets (AzureAd:ClientSecret). -->
+    <UserSecretsId>6756b696-c873-4de1-9dd0-83acdfa51f67</UserSecretsId>
+    <!-- The agent Responses/Conversations clients are marked [Experimental("OPENAI001")]. -->
+    <NoWarn>$(NoWarn);OPENAI001</NoWarn>
+  </PropertyGroup>
+
+  <!-- Same versions as AoVivo.csproj, minus the local audio device (CSCore) and console-only packages. -->
+  <ItemGroup>
+    <PackageReference Include="Azure.AI.Extensions.OpenAI" Version="3.0.0-beta.6" />
+    <PackageReference Include="Azure.AI.OpenAI" Version="2.9.0-beta.1" />
+    <PackageReference Include="Azure.AI.Projects" Version="3.0.0-beta.6" />
+    <PackageReference Include="Azure.AI.VoiceLive" Version="1.2.1" />
+    <PackageReference Include="Azure.Identity" Version="1.21.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="10.3.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="10.3.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.3.1" />
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="11.0.0-rc.3.26522.148" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="11.0.0-rc.3.26522.148" />
+  </ItemGroup>
+
+</Project>

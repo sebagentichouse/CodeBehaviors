@@ -1,0 +1,62 @@
+@host = http://localhost:5080
+
+### 1) No message -> agent greeting (starts a new conversation)
+POST {{host}}/api/chat
+
+### 1b) Same thing with an explicit null message
+POST {{host}}/api/chat
+Content-Type: application/json
+
+{ "message": null }
+
+### 2) Ask something, continuing the conversation (paste the conversationId returned above)
+POST {{host}}/api/chat
+Content-Type: application/json
+
+{
+  "message": "What can you help me with?",
+  "conversationId": "<conversationId from the previous response>"
+}
+
+### ---------------- Voice with the agent (PCM16, 24 kHz, mono) ----------------
+# The audio is transcribed (Speech:TranscriptionDeployment), answered by the agent exactly like a typed
+# message (same conversation, same tools such as web search) and read aloud (Speech:SpeechDeployment).
+# Response body is audio/wav (save it to listen). The conversation id comes back in the
+# X-Conversation-Id header and the agent's words in X-Agent-Transcript (URL-encoded).
+# Convert any recording with: ffmpeg -i input.m4a -ar 24000 -ac 1 -c:a pcm_s16le question.wav
+
+### 3) Empty body -> agent's spoken greeting (starts a new conversation)
+POST {{host}}/api/chat/audio
+
+### 4) Send a spoken question, continuing a conversation (text or audio one)
+POST {{host}}/api/chat/audio?conversationId=<conversationId>
+Content-Type: audio/wav
+
+< ./question.wav
+
+### 5) Raw PCM in and out
+POST {{host}}/api/chat/audio?format=pcm&conversationId=<conversationId>
+Content-Type: application/octet-stream
+
+< ./question.pcm
+
+### 6) JSON out (what the React app uses): { conversationId, transcript, wav (base64) }
+POST {{host}}/api/chat/audio?format=json&conversationId=<conversationId>
+Content-Type: audio/wav
+
+< ./question.wav
+
+### ---------------- TEST ONLY: realtime model, NO agent ----------------
+# VoiceLive realtime model (VoiceLive:RealtimeModel, default gpt-realtime). The Foundry agent is NOT used:
+# no agent instructions, no web search, no conversation (conversationId is not accepted).
+# The model's words come back in X-Model-Transcript; X-Voice-Target says "agent=none".
+# Only available when ASPNETCORE_ENVIRONMENT=Development (404 otherwise).
+
+### 7) Realtime model greeting
+POST {{host}}/api/chat/audio/realtime
+
+### 8) Realtime model answer to a spoken question
+POST {{host}}/api/chat/audio/realtime
+Content-Type: audio/wav
+
+< ./question.wav

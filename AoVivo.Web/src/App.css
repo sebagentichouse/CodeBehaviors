@@ -1,0 +1,233 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--panel);
+  border-inline: 1px solid var(--border);
+}
+
+header,
+footer {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  border-bottom: none;
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 1.2rem;
+}
+
+h1 span {
+  font-weight: 400;
+  color: var(--muted);
+}
+
+main {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--bg);
+}
+
+button {
+  padding: 7px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+button:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+input {
+  min-width: 0;
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+
+/* Conversation bar */
+.conversation-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.conversation-bar label {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.conversation-bar input {
+  flex: 1;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.85rem;
+}
+
+/* Messages */
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+}
+
+.empty {
+  margin: auto;
+  padding: 48px 0;
+  text-align: center;
+  color: var(--muted);
+}
+
+.empty .hint {
+  font-size: 0.85rem;
+}
+
+.message {
+  max-width: 80%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--agent);
+  align-self: flex-start;
+}
+
+.message.user {
+  align-self: flex-end;
+  background: var(--user);
+  border-color: transparent;
+}
+
+.message.system {
+  align-self: center;
+  padding: 2px 10px;
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.message.error {
+  align-self: stretch;
+  max-width: none;
+  background: var(--error-bg);
+  border-color: transparent;
+  color: var(--error-text);
+}
+
+.author {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.message.error .author {
+  color: inherit;
+}
+
+.text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.message audio {
+  display: block;
+  width: 280px;
+  max-width: 100%;
+  height: 36px;
+  margin-top: 4px;
+}
+
+.meta {
+  margin-top: 2px;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.pending .text {
+  color: var(--muted);
+}
+
+.dots {
+  display: inline-flex;
+  gap: 3px;
+  margin-right: 6px;
+}
+
+.dots i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: blink 1.2s infinite ease-in-out;
+}
+
+.dots i:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dots i:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes blink {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+/* Composer */
+.composer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quick-actions,
+.input-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.input-row input {
+  flex: 1;
+}
+
+button.mic.recording {
+  background: var(--danger);
+  border-color: var(--danger);
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}

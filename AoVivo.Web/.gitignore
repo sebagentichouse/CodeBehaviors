@@ -1,0 +1,10 @@
+node_modules
+dist
+dist-ssr
+coverage
+*.local
+.env.local
+.env.*.local
+obj
+bin
+*.log

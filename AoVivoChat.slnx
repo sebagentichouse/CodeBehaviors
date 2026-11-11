@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="AoVivo.Api/AoVivo.Api.csproj" />
+  <Project Path="AoVivo.Web/AoVivo.Web.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+</Solution>
